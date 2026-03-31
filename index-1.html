@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LearnHub — Online Learning Platform by Raghu Ram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream:    #FDFBD4;
+  --cream2:   #F7F2C0;
+  --amber:    #D47E30;
+  --brown:    #8D5A2B;
+  --dark:     #825E34;
+  --ink:      #2C1A0E;
+  --ink-soft: #5C3D22;
+  --white:    #FFFEF8;
+  --card-bg:  #FBF8E8;
+  --border:   #E8D9B0;
+  --shadow:   rgba(130,94,52,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream2); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 3px; }
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%;
+  height: 68px;
+  background: rgba(253,251,212,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px var(--shadow); }
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.4rem;
+  color: var(--dark); text-decoration: none;
+}
+.nav-logo span { color: var(--amber); }
+.nav-logo-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--amber), var(--brown));
+  display: grid; place-items: center; color: #fff; font-size: 1rem;
+}
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--ink-soft); font-weight: 500; font-size: .9rem;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--amber); }
+.nav-cta {
+  padding: 9px 22px; background: var(--amber); color: #fff;
+  border: none; border-radius: 24px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600; font-size: .88rem; cursor: pointer; transition: all .25s;
+  text-decoration: none;
+}
+.nav-cta:hover { background: var(--brown); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,126,48,.35); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 5% 60px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 40%, rgba(212,126,48,.13) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(141,90,43,.08) 0%, transparent 60%);
+}
+.hero-dots {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(141,90,43,.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px; background: rgba(212,126,48,.12); border: 1px solid rgba(212,126,48,.3);
+  border-radius: 20px; font-size: .8rem; font-weight: 600; color: var(--amber);
+  margin-bottom: 20px; animation: fadeUp .6s ease both;
+}
+.hero-badge::before { content: '●'; font-size: .5rem; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+.hero-title {
+  font-family: 'Fraunces', serif; font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.08;
+  color: var(--ink); margin-bottom: 20px;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero-title em { color: var(--amber); font-style: italic; }
+.hero-sub {
+  font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7;
+  max-width: 480px; margin-bottom: 36px;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp .7s .3s ease both; }
+.btn-primary {
+  padding: 14px 32px; background: var(--amber); color: #fff;
+  border: none; border-radius: 30px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: all .25s; text-decoration: none; display: inline-block;
+  box-shadow: 0 8px 24px rgba(212,126,48,.3);
+}
+.btn-primary:hover { background: var(--brown); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(212,126,48,.4); }
+.btn-secondary {
+  padding: 14px 32px; background: transparent; color: var(--brown);
+  border: 2px solid var(--border); border-radius: 30px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1rem;
+  cursor: pointer; transition: all .25s; text-decoration: none; display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--amber); color: var(--amber); background: rgba(212,126,48,.06); }
+.hero-stats {
+  display: flex; gap: 28px; margin-top: 48px;
+  animation: fadeUp .7s .4s ease both;
+}
+.hero-stat { text-align: left; }
+.hero-stat-num { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 800; color: var(--dark); }
+.hero-stat-label { font-size: .78rem; color: var(--ink-soft); font-weight: 500; }
+
+/* Hero Visual */
+.hero-visual { animation: fadeUp .9s .15s ease both; }
+.hero-card {
+  background: var(--white); border-radius: 24px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px var(--shadow);
+  overflow: hidden;
+}
+.hero-card-top {
+  background: linear-gradient(135deg, var(--amber) 0%, var(--brown) 100%);
+  padding: 28px; color: #fff;
+}
+.hero-card-top h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+.hero-card-top p { opacity: .85; font-size: .85rem; }
+.progress-wrap { margin-top: 18px; }
+.progress-label { display: flex; justify-content: space-between; font-size: .78rem; margin-bottom: 6px; opacity: .9; }
+.progress-bar { height: 6px; background: rgba(255,255,255,.25); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: #fff; border-radius: 3px; width: 0; transition: width 1.5s 1s ease; }
+.hero-card-body { padding: 20px; }
+.lesson-list { list-style: none; }
+.lesson-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: .88rem; color: var(--ink-soft);
+}
+.lesson-item:last-child { border-bottom: none; }
+.lesson-icon {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: grid; place-items: center; font-size: .85rem;
+}
+.lesson-icon.done { background: rgba(212,126,48,.15); color: var(--amber); }
+.lesson-icon.active { background: var(--amber); color: #fff; }
+.lesson-icon.lock { background: var(--cream2); color: var(--brown); }
+.lesson-duration { margin-left: auto; font-size: .75rem; color: var(--brown); }
+
+/* ── ABOUT ── */
+#about {
+  padding: 90px 5%;
+  background: var(--cream2);
+}
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-tag {
+  display: inline-block; padding: 5px 14px;
+  background: rgba(212,126,48,.12); border-radius: 12px;
+  color: var(--amber); font-size: .78rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; color: var(--ink); line-height: 1.2;
+}
+.section-sub { color: var(--ink-soft); margin-top: 12px; font-size: 1rem; line-height: 1.7; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; max-width: 1100px; margin: 0 auto; }
+.about-text p {
+  color: var(--ink-soft); font-size: 1rem; line-height: 1.8;
+  margin-bottom: 18px;
+}
+.about-text p:last-of-type { margin-bottom: 0; }
+.about-text strong { color: var(--dark); }
+.tech-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.badge {
+  padding: 7px 14px; border-radius: 20px; font-size: .78rem; font-weight: 700;
+  letter-spacing: .03em;
+}
+.badge-amber { background: rgba(212,126,48,.15); color: var(--amber); border: 1px solid rgba(212,126,48,.3); }
+.badge-brown { background: rgba(141,90,43,.12); color: var(--brown); border: 1px solid rgba(141,90,43,.25); }
+.badge-dark { background: rgba(130,94,52,.1); color: var(--dark); border: 1px solid rgba(130,94,52,.2); }
+
+.about-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.about-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 18px; padding: 22px; text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.about-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+.about-card-icon { font-size: 2rem; margin-bottom: 10px; }
+.about-card-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--amber); }
+.about-card-label { font-size: .78rem; color: var(--ink-soft); font-weight: 500; margin-top: 4px; }
+
+/* ── COURSES ── */
+#courses { padding: 90px 5%; background: var(--cream); }
+.filter-bar {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 44px;
+}
+.filter-btn {
+  padding: 8px 20px; border-radius: 20px; border: 1.5px solid var(--border);
+  background: transparent; color: var(--ink-soft); font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .2s;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--amber); border-color: var(--amber); color: #fff;
+}
+.courses-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px; max-width: 1200px; margin: 0 auto;
+}
+.course-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden; transition: transform .25s, box-shadow .25s;
+  display: flex; flex-direction: column;
+}
+.course-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px var(--shadow); }
+.course-thumb {
+  height: 160px; display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; position: relative; overflow: hidden;
+}
+.course-thumb::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.08));
+}
+.course-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.course-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.course-level {
+  font-size: .7rem; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 10px;
+}
+.level-beginner { background: rgba(212,126,48,.12); color: var(--amber); }
+.level-intermediate { background: rgba(141,90,43,.12); color: var(--brown); }
+.level-advanced { background: rgba(130,94,52,.1); color: var(--dark); }
+.course-rating { font-size: .78rem; color: var(--ink-soft); margin-left: auto; }
+.course-rating span { color: #E8A020; }
+.course-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.3; }
+.course-desc { font-size: .84rem; color: var(--ink-soft); line-height: 1.6; flex: 1; margin-bottom: 16px; }
+.course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.course-tag { font-size: .7rem; padding: 3px 9px; background: var(--cream2); color: var(--brown); border-radius: 8px; font-weight: 600; }
+.course-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); }
+.course-price { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 800; color: var(--ink); }
+.course-price.free { color: #2A9D5C; font-size: 1rem; font-weight: 700; }
+.course-price .original { font-size: .8rem; text-decoration: line-through; color: var(--ink-soft); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; margin-right: 4px; }
+.course-duration { font-size: .78rem; color: var(--ink-soft); }
+.enroll-btn {
+  padding: 10px 20px; border-radius: 20px; border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
+  font-size: .84rem; cursor: pointer; transition: all .2s;
+}
+.enroll-btn.free-btn { background: rgba(42,157,92,.12); color: #2A9D5C; }
+.enroll-btn.free-btn:hover { background: #2A9D5C; color: #fff; }
+.enroll-btn.paid-btn { background: var(--amber); color: #fff; box-shadow: 0 4px 14px rgba(212,126,48,.3); }
+.enroll-btn.paid-btn:hover { background: var(--brown); transform: translateY(-1px); }
+
+/* ── FEATURES ── */
+#features { padding: 90px 5%; background: var(--cream2); }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.feature-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px;
+  transition: transform .25s, box-shadow .25s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px var(--shadow); }
+.feature-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 18px;
+  background: linear-gradient(135deg, rgba(212,126,48,.15), rgba(141,90,43,.1));
+}
+.feature-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.feature-desc { font-size: .86rem; color: var(--ink-soft); line-height: 1.65; }
+
+/* ── VIDEO DEMO ── */
+#demo { padding: 90px 5%; background: var(--cream); }
+.demo-inner { max-width: 900px; margin: 0 auto; }
+.video-container {
+  border-radius: 24px; overflow: hidden;
+  border: 2px solid var(--border);
+  box-shadow: 0 24px 64px var(--shadow);
+  position: relative; background: var(--ink);
+}
+.video-container video { width: 100%; display: block; max-height: 520px; }
+.video-label {
+  text-align: center; margin-top: 20px;
+  font-size: .88rem; color: var(--ink-soft);
+}
+.video-label strong { color: var(--amber); }
+
+/* ── TECH STACK ── */
+#stack { padding: 90px 5%; background: var(--cream2); }
+.stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+.stack-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px 16px; text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.stack-item:hover { transform: translateY(-4px); box-shadow: 0 10px 28px var(--shadow); }
+.stack-icon { font-size: 2.2rem; margin-bottom: 10px; }
+.stack-name { font-weight: 700; font-size: .88rem; color: var(--ink); }
+.stack-role { font-size: .72rem; color: var(--ink-soft); margin-top: 3px; }
+
+/* ── AUTHOR ── */
+#author { padding: 90px 5%; background: var(--cream); }
+.author-card {
+  max-width: 700px; margin: 0 auto;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 28px; padding: 48px;
+  text-align: center; box-shadow: 0 16px 48px var(--shadow);
+}
+.author-avatar {
+  width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--amber), var(--brown));
+  display: grid; place-items: center; font-size: 2.2rem; color: #fff;
+}
+.author-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--ink); }
+.author-role { color: var(--ink-soft); margin-top: 6px; font-size: .92rem; }
+.author-bio { margin: 18px 0; color: var(--ink-soft); font-size: .9rem; line-height: 1.7; }
+.social-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+.social-link {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 20px;
+  background: var(--cream2); border: 1px solid var(--border);
+  color: var(--brown); font-size: .82rem; font-weight: 600;
+  text-decoration: none; transition: all .2s;
+}
+.social-link:hover { background: var(--amber); border-color: var(--amber); color: #fff; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 5%; background: var(--ink);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+}
+.footer-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.2rem; color: var(--cream); }
+.footer-logo span { color: var(--amber); }
+.footer-text { font-size: .8rem; color: rgba(253,251,212,.5); }
+
+/* ── PAYMENT MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(44,26,14,.6); backdrop-filter: blur(8px);
+  display: none; place-items: center;
+}
+.modal-overlay.open { display: grid; }
+.modal {
+  background: var(--white); border-radius: 24px;
+  width: min(520px, 92vw); padding: 40px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.25);
+  position: relative; animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalIn { from{transform:scale(.85);opacity:0;} to{transform:scale(1);opacity:1;} }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 34px; height: 34px; border-radius: 50%; border: none;
+  background: var(--cream2); color: var(--ink); font-size: 1.1rem;
+  cursor: pointer; display: grid; place-items: center; transition: .2s;
+}
+.modal-close:hover { background: var(--amber); color: #fff; }
+.modal-badge {
+  display: inline-block; padding: 4px 12px;
+  background: rgba(212,126,48,.12); border-radius: 10px;
+  color: var(--amber); font-size: .75rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 12px;
+}
+.modal-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.modal-course { font-size: .88rem; color: var(--ink-soft); margin-bottom: 24px; }
+.modal-price-box {
+  background: linear-gradient(135deg, var(--amber), var(--brown));
+  border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px; color: #fff;
+}
+.modal-price-label { font-size: .82rem; opacity: .85; margin-bottom: 4px; }
+.modal-price-amount { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 800; }
+.modal-price-sub { font-size: .78rem; opacity: .75; margin-top: 2px; }
+.payment-options { display: flex; flex-direction: column; gap: 12px; }
+.payment-option {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; border-radius: 14px;
+  border: 1.5px solid var(--border); cursor: pointer;
+  text-decoration: none; color: var(--ink);
+  transition: all .2s; background: var(--cream);
+}
+.payment-option:hover { border-color: var(--amber); background: rgba(212,126,48,.05); transform: translateX(3px); }
+.payment-option-icon { font-size: 1.6rem; flex-shrink: 0; }
+.payment-option-text strong { display: block; font-size: .9rem; font-weight: 700; color: var(--ink); }
+.payment-option-text span { font-size: .78rem; color: var(--ink-soft); }
+.payment-option-arrow { margin-left: auto; color: var(--amber); font-size: 1.1rem; }
+.modal-note { text-align: center; font-size: .75rem; color: var(--ink-soft); margin-top: 16px; line-height: 1.5; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { order: -1; }
+  .about-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+  .author-card { padding: 32px 24px; }
+}
+
+/* Mobile Nav */
+.mobile-nav {
+  position: fixed; top: 68px; left: 0; right: 0; z-index: 999;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 20px 5%; display: none; flex-direction: column; gap: 16px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🎓</div>
+    Learn<span>Hub</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#stack">Tech Stack</a></li>
+    <li><a href="#author">Author</a></li>
+  </ul>
+  <a href="#courses" class="nav-cta">Browse Courses</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#courses" onclick="closeMobileNav()">Courses</a>
+  <a href="#features" onclick="closeMobileNav()">Features</a>
+  <a href="#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="#stack" onclick="closeMobileNav()">Tech Stack</a>
+  <a href="#author" onclick="closeMobileNav()">Author</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Now Live — Free & Paid Courses Available</div>
+      <h1 class="hero-title">
+        Learn Anything.<br/>
+        Build <em>Everything.</em>
+      </h1>
+      <p class="hero-sub">A full-stack learning platform built on the MERN stack. Browse structured courses, track your progress, and grow your skills — at your own pace.</p>
+      <div class="hero-actions">
+        <a href="#courses" class="btn-primary">🚀 Browse Courses</a>
+        <a href="#demo" class="btn-secondary">▶ Watch Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">12+</div>
+          <div class="hero-stat-label">Courses</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">6</div>
+          <div class="hero-stat-label">Free Courses</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4.8⭐</div>
+          <div class="hero-stat-label">Avg Rating</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">MERN</div>
+          <div class="hero-stat-label">Powered Stack</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <h3>MERN Stack Bootcamp</h3>
+          <p>Full Stack Web Development</p>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Your Progress</span><span id="progressPct">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          </div>
+        </div>
+        <div class="hero-card-body">
+          <ul class="lesson-list">
+            <li class="lesson-item">
+              <div class="lesson-icon done">✓</div>
+              <span>React.js Fundamentals</span>
+              <span class="lesson-duration">45 min</span>
+            </li>
+            <li class="lesson-item">
+              <div class="lesson-icon done">✓</div>
+              <span>Node.js & Express API</span>
+              <span class="lesson-duration">60 min</span>
+            </li>
+            <li class="lesson-item">
+              <div class="lesson-icon active">▶</div>
+              <span><strong>MongoDB & Mongoose</strong></span>
+              <span class="lesson-duration">55 min</span>
+            </li>
+            <li class="lesson-item">
+              <div class="lesson-icon lock">🔒</div>
+              <span style="opacity:.55">JWT Authentication</span>
+              <span class="lesson-duration" style="opacity:.55">50 min</span>
+            </li>
+            <li class="lesson-item">
+              <div class="lesson-icon lock">🔒</div>
+              <span style="opacity:.55">Deploy to Cloud</span>
+              <span class="lesson-duration" style="opacity:.55">40 min</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="section-header">
+    <div class="section-tag">About This Platform</div>
+    <h2 class="section-title">Built with Purpose, Powered by MERN</h2>
+    <p class="section-sub">A real-world, production-grade learning platform engineered from scratch.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I developed a <strong>Full Stack Online Learning Platform</strong> using the MERN Technology Stack — <strong>MongoDB, Express.js, React.js,</strong> and <strong>Node.js</strong>. The platform is designed to deliver structured educational content with secure authentication, real-time tracking, and a seamless experience across all devices.
+      </p>
+      <p>
+        Additionally, I carried out <strong>data analysis using Python, SQL, and Excel</strong> to surface actionable insights on user engagement, course performance, and platform growth — enabling better, data-driven decisions.
+      </p>
+      <p>
+        The system follows <strong>MVC architecture</strong>, implements <strong>JWT-based authentication</strong>, and uses a <strong>RESTful API</strong> with Mongoose ODM for clean separation of concerns across all layers.
+      </p>
+      <div class="tech-badges">
+        <span class="badge badge-amber">MongoDB</span>
+        <span class="badge badge-amber">Express.js</span>
+        <span class="badge badge-amber">React.js</span>
+        <span class="badge badge-amber">Node.js</span>
+        <span class="badge badge-brown">Python</span>
+        <span class="badge badge-brown">MySQL</span>
+        <span class="badge badge-brown">REST API</span>
+        <span class="badge badge-dark">JWT Auth</span>
+        <span class="badge badge-dark">MVC Pattern</span>
+        <span class="badge badge-dark">AWS Cloud</span>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <div class="about-card-icon">⚡</div>
+        <div class="about-card-num">3</div>
+        <div class="about-card-label">Internships Completed</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📦</div>
+        <div class="about-card-num">10+</div>
+        <div class="about-card-label">Certifications Earned</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🛠️</div>
+        <div class="about-card-num">MERN</div>
+        <div class="about-card-label">Full Stack Expertise</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">☁️</div>
+        <div class="about-card-num">AWS</div>
+        <div class="about-card-label">Cloud Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COURSES ══ -->
+<section id="courses">
+  <div class="section-header">
+    <div class="section-tag">Courses</div>
+    <h2 class="section-title">Start Learning Today</h2>
+    <p class="section-sub">Free and premium courses taught through real-world projects and hands-on assignments.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCourses('all', this)">All Courses</button>
+    <button class="filter-btn" onclick="filterCourses('free', this)">🆓 Free</button>
+    <button class="filter-btn" onclick="filterCourses('paid', this)">💎 Premium</button>
+    <button class="filter-btn" onclick="filterCourses('web', this)">🌐 Web Dev</button>
+    <button class="filter-btn" onclick="filterCourses('cloud', this)">☁️ Cloud</button>
+    <button class="filter-btn" onclick="filterCourses('data', this)">📊 Data</button>
+  </div>
+
+  <div class="courses-grid" id="coursesGrid">
+
+    <!-- MERN Stack — FREE -->
+    <div class="course-card" data-category="web free">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#D47E30,#8D5A2B);">🌐</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-beginner">Beginner</span>
+          <span class="course-rating"><span>★★★★★</span> 4.9</span>
+        </div>
+        <div class="course-title">MERN Stack Fundamentals</div>
+        <div class="course-desc">Build full-stack web apps with MongoDB, Express, React & Node. Hands-on projects included.</div>
+        <div class="course-tags">
+          <span class="course-tag">React.js</span>
+          <span class="course-tag">Node.js</span>
+          <span class="course-tag">MongoDB</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price free">🆓 Free</div>
+            <div class="course-duration">⏱ 8 hours</div>
+          </div>
+          <button class="enroll-btn free-btn">Enroll Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWS Cloud — PAID -->
+    <div class="course-card" data-category="cloud paid">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#FF9F43,#D47E30);">☁️</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-intermediate">Intermediate</span>
+          <span class="course-rating"><span>★★★★★</span> 4.8</span>
+        </div>
+        <div class="course-title">AWS Cloud Computing Masterclass</div>
+        <div class="course-desc">Master EC2, S3, Lambda, DynamoDB & API Gateway. Deploy real IoT applications to the cloud.</div>
+        <div class="course-tags">
+          <span class="course-tag">AWS EC2</span>
+          <span class="course-tag">Lambda</span>
+          <span class="course-tag">DynamoDB</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price"><span class="original">₹799</span>₹499</div>
+            <div class="course-duration">⏱ 12 hours</div>
+          </div>
+          <button class="enroll-btn paid-btn" onclick="openPayment('AWS Cloud Computing Masterclass', 499, 6)">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Python DS — FREE -->
+    <div class="course-card" data-category="data free">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#8D5A2B,#5C3D22);">🐍</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-beginner">Beginner</span>
+          <span class="course-rating"><span>★★★★☆</span> 4.7</span>
+        </div>
+        <div class="course-title">Python 101 for Data Science</div>
+        <div class="course-desc">Learn Python fundamentals through data analysis — Pandas, Matplotlib, and real datasets.</div>
+        <div class="course-tags">
+          <span class="course-tag">Python</span>
+          <span class="course-tag">Pandas</span>
+          <span class="course-tag">Matplotlib</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price free">🆓 Free</div>
+            <div class="course-duration">⏱ 6 hours</div>
+          </div>
+          <button class="enroll-btn free-btn">Enroll Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- IoT Embedded — PAID -->
+    <div class="course-card" data-category="paid">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#825E34,#4A3520);">🔌</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-intermediate">Intermediate</span>
+          <span class="course-rating"><span>★★★★★</span> 4.9</span>
+        </div>
+        <div class="course-title">IoT & Embedded Systems Design</div>
+        <div class="course-desc">Build real IoT projects with Arduino, Raspberry Pi, and sensor integration. UART/I2C/SPI protocols.</div>
+        <div class="course-tags">
+          <span class="course-tag">Arduino</span>
+          <span class="course-tag">Embedded C</span>
+          <span class="course-tag">IoT</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price"><span class="original">₹599</span>₹399</div>
+            <div class="course-duration">⏱ 10 hours</div>
+          </div>
+          <button class="enroll-btn paid-btn" onclick="openPayment('IoT & Embedded Systems Design', 399, 5)">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web Dev — FREE -->
+    <div class="course-card" data-category="web free">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#E8A020,#D47E30);">💻</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-beginner">Beginner</span>
+          <span class="course-rating"><span>★★★★☆</span> 4.6</span>
+        </div>
+        <div class="course-title">Web Development Bootcamp</div>
+        <div class="course-desc">From HTML & CSS to JavaScript, React, and responsive design — build real-world interfaces.</div>
+        <div class="course-tags">
+          <span class="course-tag">HTML5</span>
+          <span class="course-tag">CSS3</span>
+          <span class="course-tag">JavaScript</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price free">🆓 Free</div>
+            <div class="course-duration">⏱ 7 hours</div>
+          </div>
+          <button class="enroll-btn free-btn">Enroll Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AutoCAD — PAID -->
+    <div class="course-card" data-category="paid">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#A06030,#6B3F1D);">📐</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-beginner">Beginner</span>
+          <span class="course-rating"><span>★★★★★</span> 4.8</span>
+        </div>
+        <div class="course-title">AutoCAD for Engineers</div>
+        <div class="course-desc">Master 2D/3D drafting and design workflows for electrical and mechanical engineering projects.</div>
+        <div class="course-tags">
+          <span class="course-tag">AutoCAD</span>
+          <span class="course-tag">2D Drafting</span>
+          <span class="course-tag">Engineering</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price"><span class="original">₹499</span>₹299</div>
+            <div class="course-duration">⏱ 5 hours</div>
+          </div>
+          <button class="enroll-btn paid-btn" onclick="openPayment('AutoCAD for Engineers', 299, 4)">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Science — FREE -->
+    <div class="course-card" data-category="data free">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#D47E30,#825E34);">📊</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-intermediate">Intermediate</span>
+          <span class="course-rating"><span>★★★★☆</span> 4.7</span>
+        </div>
+        <div class="course-title">Data Science & Analytics</div>
+        <div class="course-desc">Explore data with Python, SQL, and Excel. Learn to generate actionable insights and visual reports.</div>
+        <div class="course-tags">
+          <span class="course-tag">Python</span>
+          <span class="course-tag">SQL</span>
+          <span class="course-tag">Excel</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price free">🆓 Free</div>
+            <div class="course-duration">⏱ 9 hours</div>
+          </div>
+          <button class="enroll-btn free-btn">Enroll Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cybersecurity — PAID -->
+    <div class="course-card" data-category="paid">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#4A3520,#2C1A0E);">🔐</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-advanced">Advanced</span>
+          <span class="course-rating"><span>★★★★★</span> 4.9</span>
+        </div>
+        <div class="course-title">Cybersecurity Essentials</div>
+        <div class="course-desc">Learn ethical hacking, network security, encryption, and best practices for secure application development.</div>
+        <div class="course-tags">
+          <span class="course-tag">Security</span>
+          <span class="course-tag">Encryption</span>
+          <span class="course-tag">Networking</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price"><span class="original">₹699</span>₹449</div>
+            <div class="course-duration">⏱ 11 hours</div>
+          </div>
+          <button class="enroll-btn paid-btn" onclick="openPayment('Cybersecurity Essentials', 449, 5)">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Power Electronics — FREE -->
+    <div class="course-card" data-category="free">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#C87028,#7A4A20);">⚡</div>
+      <div class="course-body">
+        <div class="course-meta">
+          <span class="course-level level-intermediate">Intermediate</span>
+          <span class="course-rating"><span>★★★★★</span> 4.8</span>
+        </div>
+        <div class="course-title">Power Electronics & Solar Systems</div>
+        <div class="course-desc">DC-DC converters, inverters, solar PV systems, and motor control — from theory to simulation in MATLAB.</div>
+        <div class="course-tags">
+          <span class="course-tag">MATLAB</span>
+          <span class="course-tag">Solar PV</span>
+          <span class="course-tag">Power Systems</span>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price free">🆓 Free</div>
+            <div class="course-duration">⏱ 8 hours</div>
+          </div>
+          <button class="enroll-btn free-btn">Enroll Free</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section id="features">
+  <div class="section-header">
+    <div class="section-tag">Platform Features</div>
+    <h2 class="section-title">Everything You Need to Learn</h2>
+    <p class="section-sub">Designed for focused, distraction-free study with accessible design and smart progress tracking.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔐</div>
+      <div class="feature-title">Secure Authentication</div>
+      <div class="feature-desc">JWT-based login and registration with bcrypt password hashing. Your account and progress are always protected.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <div class="feature-title">Progress Tracking</div>
+      <div class="feature-desc">Visual progress bars per course and module. Pick up exactly where you left off, any time, on any device.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">Fully Responsive</div>
+      <div class="feature-desc">Optimized for mobile, tablet, and desktop. Study on the go without sacrificing readability or usability.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👁️</div>
+      <div class="feature-title">Eye-Friendly Design</div>
+      <div class="feature-desc">Soft beige backgrounds instead of harsh white. High-contrast typography designed for long study sessions.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Analytics Dashboard</div>
+      <div class="feature-desc">Track enrollment trends, completion rates, and user engagement — powered by Python + SQL data analysis.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <div class="feature-title">RESTful API Backend</div>
+      <div class="feature-desc">Clean, stateless endpoints built with Express.js and Mongoose ODM. MVC architecture for easy scaling.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIDEO DEMO ══ -->
+<section id="demo">
+  <div class="section-header">
+    <div class="section-tag">Live Demo</div>
+    <h2 class="section-title">See It in Action</h2>
+    <p class="section-sub">Watch how the platform works — from browsing courses to tracking your progress.</p>
+  </div>
+  <div class="demo-inner">
+    <div class="video-container">
+      <video controls preload="metadata" poster="">
+        <source src="demo.mp4" type="video/mp4"/>
+        Your browser doesn't support HTML5 video.
+      </video>
+    </div>
+    <div class="video-label">
+      🎬 Platform walkthrough — <strong>built with MERN Stack</strong> by Raghu Ram &nbsp;|&nbsp;
+      <a href="https://github.com/vvraghuram/Longterm" target="_blank" style="color:var(--amber);text-decoration:none;font-weight:600;">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TECH STACK ══ -->
+<section id="stack">
+  <div class="section-header">
+    <div class="section-tag">Tech Stack</div>
+    <h2 class="section-title">Built with Modern Technologies</h2>
+    <p class="section-sub">Every layer of the platform uses industry-standard tools and best practices.</p>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-item"><div class="stack-icon">⚛️</div><div class="stack-name">React.js</div><div class="stack-role">Frontend UI</div></div>
+    <div class="stack-item"><div class="stack-icon">🟢</div><div class="stack-name">Node.js</div><div class="stack-role">Runtime</div></div>
+    <div class="stack-item"><div class="stack-icon">🚂</div><div class="stack-name">Express.js</div><div class="stack-role">API Framework</div></div>
+    <div class="stack-item"><div class="stack-icon">🍃</div><div class="stack-name">MongoDB</div><div class="stack-role">Database</div></div>
+    <div class="stack-item"><div class="stack-icon">🔑</div><div class="stack-name">JWT Auth</div><div class="stack-role">Security</div></div>
+    <div class="stack-item"><div class="stack-icon">🐍</div><div class="stack-name">Python</div><div class="stack-role">Data Analysis</div></div>
+    <div class="stack-item"><div class="stack-icon">🗄️</div><div class="stack-name">MySQL</div><div class="stack-role">Analytics DB</div></div>
+    <div class="stack-item"><div class="stack-icon">☁️</div><div class="stack-name">AWS</div><div class="stack-role">Cloud Deploy</div></div>
+    <div class="stack-item"><div class="stack-icon">📊</div><div class="stack-name">Excel</div><div class="stack-role">Reporting</div></div>
+    <div class="stack-item"><div class="stack-icon">🐙</div><div class="stack-name">GitHub</div><div class="stack-role">Version Control</div></div>
+  </div>
+</section>
+
+<!-- ══ AUTHOR ══ -->
+<section id="author">
+  <div class="section-header">
+    <div class="section-tag">The Creator</div>
+    <h2 class="section-title">Meet the Author</h2>
+  </div>
+  <div class="author-card">
+    <div class="author-avatar">👨‍💻</div>
+    <div class="author-name">Veeravalli Venkata Raghu Ram</div>
+    <div class="author-role">B.Tech — Electrical & Electronics Engineering · GIET, Rajahmundry</div>
+    <div class="author-bio">
+      Full-stack developer passionate about MERN, cloud computing, IoT, and power electronics.
+      Built this platform from scratch using real-world engineering principles — from database design to UI/UX.
+      AWS certified, data analysis enthusiast, and active content creator at <strong>@2in1_gamer</strong>.
+    </div>
+    <div class="social-links">
+      <a href="https://linkedin.com/in/vvraghuram" target="_blank" class="social-link">💼 LinkedIn</a>
+      <a href="https://github.com/vvraghuram/Longterm" target="_blank" class="social-link">🐙 GitHub</a>
+      <a href="mailto:vraghuram104@gmail.com" class="social-link">📧 Email</a>
+      <a href="https://youtube.com/@2in1_gamer" target="_blank" class="social-link">🎥 YouTube</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">Learn<span>Hub</span></div>
+  <div class="footer-text">© 2025 Veeravalli Venkata Raghu Ram · Built with MERN Stack</div>
+</footer>
+
+<!-- ══ PAYMENT MODAL ══ -->
+<div class="modal-overlay" id="paymentModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closePayment()">✕</button>
+    <div class="modal-badge">💳 Secure Payment</div>
+    <div class="modal-title">Enroll in Course</div>
+    <div class="modal-course" id="modalCourseName">Course name here</div>
+    <div class="modal-price-box">
+      <div class="modal-price-label">Course Fee</div>
+      <div class="modal-price-amount" id="modalPriceDisplay">₹499</div>
+      <div class="modal-price-sub" id="modalPriceSub">≈ $6 USD · One-time payment · Lifetime access</div>
+    </div>
+    <div class="payment-options">
+      <a class="payment-option" id="upiLink" href="#" target="_blank">
+        <div class="payment-option-icon">📱</div>
+        <div class="payment-option-text">
+          <strong>Pay via UPI</strong>
+          <span id="upiId">9182838497@kotak811 · Auto amount filled</span>
+        </div>
+        <div class="payment-option-arrow">→</div>
+      </a>
+      <a class="payment-option" id="paypalLink" href="#" target="_blank">
+        <div class="payment-option-icon">🅿️</div>
+        <div class="payment-option-text">
+          <strong>Pay via PayPal</strong>
+          <span id="paypalAmount">paypal.me/raghuramvv · Auto amount filled</span>
+        </div>
+        <div class="payment-option-arrow">→</div>
+      </a>
+    </div>
+    <div class="modal-note">
+      🔒 After payment, send a screenshot to <strong>vraghuram104@gmail.com</strong> with your name to get course access.<br/>
+      UPI ID: <strong>9182838497@kotak811</strong> · PayPal: <strong>paypal.me/raghuramvv</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+// ── PROGRESS BAR ANIMATION ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('progressFill').style.width = '68%';
+    document.getElementById('progressPct').textContent = '68%';
+  }, 600);
+});
+
+// ── COURSE FILTER ──
+function filterCourses(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.course-card').forEach(card => {
+    if (cat === 'all' || card.dataset.category.includes(cat)) {
+      card.style.display = 'flex';
+      card.style.animation = 'fadeUp .4s ease both';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// ── PAYMENT MODAL ──
+function openPayment(courseName, priceINR, priceUSD) {
+  document.getElementById('modalCourseName').textContent = courseName;
+  document.getElementById('modalPriceDisplay').textContent = '₹' + priceINR;
+  document.getElementById('modalPriceSub').textContent = '≈ $' + priceUSD + ' USD · One-time payment · Lifetime access';
+  document.getElementById('upiId').textContent = '9182838497@kotak811 · Amount: ₹' + priceINR + ' (auto-filled on UPI apps)';
+  document.getElementById('paypalAmount').textContent = 'paypal.me/raghuramvv/' + priceUSD + ' · Amount auto-set';
+
+  const encodedName = encodeURIComponent(courseName);
+  document.getElementById('upiLink').href =
+    `upi://pay?pa=9182838497@kotak811&pn=Raghu%20Ram&am=${priceINR}&cu=INR&tn=${encodedName}`;
+  document.getElementById('paypalLink').href =
+    `https://www.paypal.me/raghuramvv/${priceUSD}`;
+
+  document.getElementById('paymentModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePayment() {
+  document.getElementById('paymentModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('paymentModal')) closePayment();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePayment(); });
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeUp .6s ease both';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.course-card, .feature-card, .about-card, .stack-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
